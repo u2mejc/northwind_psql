@@ -1,10 +1,10 @@
 #!/bin/bash
 
-dropdb northwind
-dropuser northwind_user
+dropdb northwind || true
+dropuser northwind_user || true
 
 createdb northwind
-psql northwind < northwind.sql
+[[ -e ./northwind.sql ]] && psql northwind < northwind.sql || true
 
 psql template1 -c "create user northwind_user;"
 psql template1 -c "alter user northwind_user password 'thewindisblowing';"
